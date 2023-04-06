@@ -1,0 +1,91 @@
+Infix : An expression is called the Infix expression if the operator appears in between the operands in the expression. Simply of the form (operand1 operator operand2). 
+Example : (A+B) * (C-D)
+
+Prefix : An expression is called the prefix expression if the operator appears in the expression before the operands. Simply of the form (operator operand1 operand2). 
+Example : *+AB-CD (Infix : (A+B) * (C-D) )
+
+Given a Prefix expression, convert it into a Infix expression. 
+Computers usually does the computation in either prefix or postfix (usually postfix). But for humans, its easier to understand an Infix expression rather than a prefix. Hence conversion is need for human understanding.
+
+Examples: 
+
+Input :  Prefix :  *+AB-CD
+Output : Infix : ((A+B)*(C-D))
+
+Input :  Prefix :  *-A/BC-/AKL
+Output : Infix : ((A-(B/C))*((A/K)-L))
+
+
+Algorithm for Prefix to Infix: 
+
+Read the Prefix expression in reverse order (from right to left)
+If the symbol is an operand, then push it onto the Stack
+If the symbol is an operator, then pop two operands from the Stack 
+Create a string by concatenating the two operands and the operator between them. 
+string = (operand1 + operator + operand2) 
+And push the resultant string back to Stack
+Repeat the above steps until the end of Prefix expression.
+At the end stack will have only 1 string i.e resultant string
+
+
+
+<script>
+	// Javascript program to convert prefix to Infix
+	
+	// Function to check if character
+	// is operator or not
+	function isOperator(x)
+	{
+		switch(x)
+		{
+			case '+':
+			case '-':
+			case '*':
+			case '/':
+			case '^':
+			case '%':
+				return true;
+		}
+		return false;
+	}
+
+	// Convert prefix to Infix expression
+	function convert(str)
+	{
+		let stack = [];
+
+		// Length of expression
+		let l = str.length;
+
+		// Reading from right to left
+		for(let i = l - 1; i >= 0; i--)
+		{
+			let c = str[i];
+
+			if (isOperator(c))
+			{
+				let op1 = stack[stack.length - 1];
+				stack.pop()
+				let op2 = stack[stack.length - 1];
+				stack.pop()
+
+				// Concat the operands and operator
+				let temp = "(" + op1 + c + op2 + ")";
+				stack.push(temp);
+			}
+			else
+			{
+
+				// To make character to string
+				stack.push(c + "");
+			}
+		}
+		return stack[stack.length - 1];
+	}
+	
+	let exp = "*-A/BC-/AKL";
+	
+	document.write("Infix : " + convert(exp));
+	
+	// This code is contributed by suresh07.
+</script>
