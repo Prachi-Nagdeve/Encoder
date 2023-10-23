@@ -23,7 +23,8 @@ nav{
     cursor:pointer;
     margin-left: 0px;
     margin-top: 20px;
-    width: 250px;
+    width: 150px;
+    height: 150px;
 }
 .logo:hover{
     transform: scale(1.2);
